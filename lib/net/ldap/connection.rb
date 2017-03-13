@@ -74,7 +74,9 @@ class Net::LDAP::Connection #:nodoc:
 
   module GetbyteForSSLSocket
     def getbyte
-      getc.ord
+      b = getc
+      raise Net::LDAP::ConnectionClosedError if b.nil?
+      b.ord
     end
   end
 
@@ -237,7 +239,7 @@ class Net::LDAP::Connection #:nodoc:
         end
       end
 
-    return unless ber_object
+    raise Net::LDAP::ConnectionClosedError unless ber_object
 
     instrument "parse_pdu.net_ldap_connection" do |payload|
       pdu = payload[:pdu]  = Net::LDAP::PDU.new(ber_object)

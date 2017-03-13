@@ -55,6 +55,7 @@ class Net::LDAP
   class BindingInformationInvalidError < Error; end
   class NoBindResultError < Error; end
   class SASLChallengeOverflowError < Error; end
+  class ConnectionClosedError < Error; end
   class SearchSizeInvalidError < Error; end
   class SearchScopeInvalidError < Error; end
   class ResponseTypeInvalidError < Error; end
